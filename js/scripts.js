@@ -12,8 +12,8 @@ angular.module('app', ['ngRoute'])
 		controller: 'Main'
 	})
 	.when('/:ID', {
-		templateUrl: myLocalized.partials + 'slug.html',
-		controller: 'Slug'
+		templateUrl: myLocalized.partials + 'content.html',
+		controller: 'Content'
 	});
 })
 .controller('Main', function($scope, $http, $routeParams) {
@@ -21,7 +21,7 @@ angular.module('app', ['ngRoute'])
 		$scope.posts = res;
 	});
 })
-.controller('Slug', function($scope, $http, $routeParams) {
+.controller('Content', function($scope, $http, $routeParams) {
 	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
 	});

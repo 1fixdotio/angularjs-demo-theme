@@ -1,6 +1,7 @@
 <?php
 
-function my_scripts_method() {
+function my_scripts() {
+
 	wp_register_script(
 		'angularjs',
 		get_stylesheet_directory_uri() . '/bower_components/angular/angular.min.js'
@@ -26,6 +27,6 @@ function my_scripts_method() {
 	);
 }
 
-add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
+add_action( 'wp_enqueue_scripts', 'my_scripts' );
 
 add_filter('show_admin_bar', '__return_false');

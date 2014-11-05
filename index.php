@@ -2,14 +2,14 @@
 <html ng-app="app">
 <head>
 	<base href="/jsonapi/">
-	<title>Angular JS Sample Theme</title>
+	<title>AngularJS Demo Theme</title>
 	<?php wp_head(); ?>
 </head>
 <body>
 
 	<header>
 		<h1>
-			<a href="<?php echo site_url(); ?>">Angular JS Sample Theme</a>
+			<a href="<?php echo site_url(); ?>">AngularJS Demo Theme</a>
 		</h1>
 	</header>
 
