@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute'])
+angular.module('app', ['ngRoute', 'ngSanitize'])
 .config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 
