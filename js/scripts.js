@@ -26,8 +26,8 @@ var app = angular.module('app', ['ngRoute'])
             $scope.post = res;
         });
     })
-    .filter('toTrusted', function($sce) {
+    .filter('toTrusted', ['$sce', function($sce) {
         return function(text) {
             return $sce.trustAsHtml(text);
         };
-    });
+    }]);
