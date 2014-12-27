@@ -1,7 +1,8 @@
+<search-form></search-form>
+
 <ul>
 	<li ng-repeat="post in posts">
-		<a href="{{post.ID}}">
-			{{post.title}}
-		</a>
+		<a href="{{post.ID}}" ng-bind-html="post.title"></a>
+		<div ng-bind-html="post.content"></div>
 	</li>
 </ul>
