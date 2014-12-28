@@ -39,6 +39,6 @@ angular.module('app', ['ngRoute', 'ngSanitize'])
 .directive('searchForm', function() {
 	return {
 		restrict: 'EA',
-		template: 'Search Keyword: <input type="text" name="s" ng-model="filter.s" ng-change="search()">',
+		templateUrl: myLocalized.partials + 'search-form.html',
 	};
 });
