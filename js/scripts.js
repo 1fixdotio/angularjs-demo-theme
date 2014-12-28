@@ -17,19 +17,9 @@ angular.module('app', ['ngRoute', 'ngSanitize'])
 	});
 })
 .controller('Main', function($scope, $http, $routeParams) {
-	$scope.filter = {
-		s: ''
-	};
-
 	$http.get('wp-json/posts/').success(function(res){
 		$scope.posts = res;
 	});
-
-	$scope.search = function() {
-		$http.get('wp-json/posts/?filter[s]=' + $scope.filter.s).success(function(res){
-			$scope.posts = res;
-		});
-	};
 })
 .controller('Content', function($scope, $http, $routeParams) {
 	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
@@ -40,5 +30,15 @@ angular.module('app', ['ngRoute', 'ngSanitize'])
 	return {
 		restrict: 'EA',
 		template: 'Search Keyword: <input type="text" name="s" ng-model="filter.s" ng-change="search()">',
+		controller: function ( $scope, $http ) {
+			$scope.filter = {
+				s: ''
+			};
+			$scope.search = function() {
+				$http.get('wp-json/posts/?filter[s]=' + $scope.filter.s).success(function(res){
+					$scope.posts = res;
+				});
+			};
+		}
 	};
 });
