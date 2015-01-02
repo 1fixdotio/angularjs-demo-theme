@@ -1,5 +1,7 @@
-angular.module('app', ['ngRoute', 'ngSanitize'])
-.config(function($routeProvider, $locationProvider) {
+var app = angular.module('app', ['ngRoute', 'ngSanitize']);
+
+//Config the route
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 
 	$routeProvider
@@ -15,22 +17,28 @@ angular.module('app', ['ngRoute', 'ngSanitize'])
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	});
-})
-.controller('Main', function($scope, $http, $routeParams) {
+}]);
+
+//Main controller
+app.controller('Main', ['$scope', '$http', function($scope, $http) {
 	$http.get('wp-json/posts/').success(function(res){
 		$scope.posts = res;
 	});
-})
-.controller('Content', function($scope, $http, $routeParams) {
+}]);
+
+//Content controller
+app.controller('Content', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
 	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
 	});
-})
-.directive('searchForm', function() {
+}]);
+
+//searchForm Directive
+app.directive('searchForm', function() {
 	return {
 		restrict: 'EA',
 		template: 'Search Keyword: <input type="text" name="s" ng-model="filter.s" ng-change="search()">',
-		controller: function ( $scope, $http ) {
+		controller: ['$scope', '$http', function ( $scope, $http ) {
 			$scope.filter = {
 				s: ''
 			};
@@ -39,6 +47,6 @@ angular.module('app', ['ngRoute', 'ngSanitize'])
 					$scope.posts = res;
 				});
 			};
-		}
+		}]
 	};
 });
