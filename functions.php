@@ -19,7 +19,7 @@ function my_scripts() {
 
 	wp_enqueue_script(
 		'my-scripts',
-		get_stylesheet_directory_uri() . '/js/scripts.js',
+		get_stylesheet_directory_uri() . '/js/scripts.min.js',
 		array( 'angularjs', 'angularjs-route', 'angularjs-sanitize' )
 	);
 
