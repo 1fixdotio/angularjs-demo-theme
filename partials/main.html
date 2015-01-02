@@ -1,8 +1,5 @@
 <search-form></search-form>
 
 <ul>
-	<li ng-repeat="post in posts">
-		<a href="{{post.ID}}" ng-bind-html="post.title"></a>
-		<div ng-bind-html="post.content"></div>
-	</li>
+	<list-item ng-repeat="post in posts" ng-class="{red: categories.length > 1}"></list-item>
 </ul>

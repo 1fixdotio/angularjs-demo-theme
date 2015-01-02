@@ -38,7 +38,7 @@ app.directive('searchForm', function() {
 	return {
 		restrict: 'EA',
 		template: 'Search Keyword: <input type="text" name="s" ng-model="filter.s" ng-change="search()">',
-		controller: ['$scope', '$http', function ( $scope, $http ) {
+		controller: ['$scope', '$http', function ($scope, $http) {
 			$scope.filter = {
 				s: ''
 			};
@@ -47,6 +47,18 @@ app.directive('searchForm', function() {
 					$scope.posts = res;
 				});
 			};
+		}]
+	};
+});
+
+//listItem Directive
+app.directive('listItem', function() {
+	return {
+		replace: true,
+		restrict: 'EA',
+		templateUrl: myLocalized.partials + 'list-item.html',
+		controller: ['$scope', function ($scope) {
+			$scope.categories = $scope.post.terms.category;
 		}]
 	};
 });

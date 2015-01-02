@@ -30,6 +30,11 @@ function my_scripts() {
 			'partials' => trailingslashit( get_template_directory_uri() ) . 'partials/'
 			)
 	);
+
+	wp_enqueue_style(
+		'my-style',
+		get_stylesheet_uri()
+	);
 }
 
 add_action( 'wp_enqueue_scripts', 'my_scripts' );

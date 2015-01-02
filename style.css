@@ -8,3 +8,6 @@ Author URI: http://1fix.io
 Tags: angularjs, json-rest-api
 */
 
+.red * {
+	color: red;
+}
