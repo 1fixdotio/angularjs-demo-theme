@@ -13,7 +13,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'demo.html',
 		controller: 'Main'
 	})
-	.when('/:ID', {
+	.when('/:slug', {
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	});
@@ -28,8 +28,8 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 
 //Content controller
 app.controller('Content', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
-		$scope.post = res;
+	$http.get('wp-json/posts/?filter[name]=' + $routeParams.slug).success(function(res){
+		$scope.posts = res;
 	});
 }]);
 

@@ -1,2 +1,4 @@
-<h1 ng-bind-html="post.title"></h1>
-<div ng-bind-html="post.content"></div>
+<div ng-repeat="post in posts">
+	<h1 ng-bind-html="post.title"></h1>
+	<div ng-bind-html="post.content"></div>
+</div>
