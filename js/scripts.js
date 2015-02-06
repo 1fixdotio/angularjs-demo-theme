@@ -21,8 +21,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		title: ''
 	})
 	.otherwise({
-		templateUrl: myLocalized.partials + '404.html',
-		title: 'Page Not Found'
+		redirectTo: '/'
 	});
 }]);
 
