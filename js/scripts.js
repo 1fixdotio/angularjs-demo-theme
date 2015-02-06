@@ -7,18 +7,31 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 	$routeProvider
 	.when('/', {
 		templateUrl: myLocalized.partials + 'main.html',
-		controller: 'Main'
+		controller: 'Main',
+		title: 'Home'
 	})
 	.when('/demo', {
 		templateUrl: myLocalized.partials + 'demo.html',
-		controller: 'Main'
+		controller: 'Main',
+		title: 'Demo'
 	})
 	.when('/blog/:ID', {
 		templateUrl: myLocalized.partials + 'content.html',
-		controller: 'Content'
+		controller: 'Content',
+		title: ''
 	})
 	.otherwise({
 		templateUrl: myLocalized.partials + '404.html',
+		title: 'Page Not Found'
+	});
+}]);
+
+// change Page Title based on the routers
+app.run(['$rootScope', '$http', '$sce', function($rootScope, $http, $sce) {
+	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+		if ( current.$$route.title !== '' ) {
+			document.querySelector('title').innerHTML = $sce.trustAsHtml(current.$$route.title);
+		}
 	});
 }]);
 
@@ -30,9 +43,10 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 }]);
 
 //Content controller
-app.controller('Content', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-	$http.get('wp-json/posts/' + $routeParams.ID ).success(function(res){
+app.controller('Content', ['$scope', '$routeParams', '$http', '$sce', function($scope, $routeParams, $http, $sce) {
+	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
+		document.querySelector('title').innerHTML = $sce.trustAsHtml(res.title);
 	});
 }]);
 
