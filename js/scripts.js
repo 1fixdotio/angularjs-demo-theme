@@ -29,7 +29,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 app.run(['$rootScope', '$http', '$sce', function($rootScope, $http, $sce) {
 	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 		if ( current.$$route.title !== '' ) {
-			document.querySelector('title').innerHTML = $sce.trustAsHtml(current.$$route.title);
+			document.querySelector('title').innerHTML = $sce.trustAsHtml(current.$$route.title + ' | AngularJS Demo Theme');
 		}
 	});
 }]);
@@ -45,7 +45,7 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 app.controller('Content', ['$scope', '$routeParams', '$http', '$sce', function($scope, $routeParams, $http, $sce) {
 	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
-		document.querySelector('title').innerHTML = $sce.trustAsHtml(res.title);
+		document.querySelector('title').innerHTML = $sce.trustAsHtml(res.title + ' | AngularJS Demo Theme');
 	});
 }]);
 
