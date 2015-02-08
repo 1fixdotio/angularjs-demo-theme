@@ -7,30 +7,18 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 	$routeProvider
 	.when('/', {
 		templateUrl: myLocalized.partials + 'main.html',
-		controller: 'Main',
-		title: 'Home'
+		controller: 'Main'
 	})
 	.when('/demo', {
 		templateUrl: myLocalized.partials + 'demo.html',
-		controller: 'Main',
-		title: 'Demo'
+		controller: 'Main'
 	})
 	.when('/blog/:ID', {
 		templateUrl: myLocalized.partials + 'content.html',
-		controller: 'Content',
-		title: ''
+		controller: 'Content'
 	})
 	.otherwise({
 		redirectTo: '/'
-	});
-}]);
-
-// change Page Title based on the routers
-app.run(['$rootScope', '$http', '$sce', function($rootScope, $http, $sce) {
-	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-		if ( current.$$route.title !== '' ) {
-			document.querySelector('title').innerHTML = $sce.trustAsHtml(current.$$route.title + ' | AngularJS Demo Theme');
-		}
 	});
 }]);
 
@@ -38,6 +26,7 @@ app.run(['$rootScope', '$http', '$sce', function($rootScope, $http, $sce) {
 app.controller('Main', ['$scope', '$http', function($scope, $http) {
 	$http.get('wp-json/posts/').success(function(res){
 		$scope.posts = res;
+		document.querySelector('title').innerHTML = 'Home | AngularJS Demo Theme';
 	});
 }]);
 
