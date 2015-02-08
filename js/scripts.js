@@ -26,7 +26,6 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 app.controller('Main', ['$scope', '$http', function($scope, $http) {
 	$http.get('wp-json/posts/').success(function(res){
 		$scope.posts = res;
-		document.querySelector('title').innerHTML = 'Home | AngularJS Demo Theme';
 	});
 }]);
 

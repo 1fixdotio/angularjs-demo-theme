@@ -2,7 +2,7 @@
 <html>
 <head>
 	<base href="/jsonapi/">
-	<title>AngularJS Demo Theme</title>
+	<title>Home | AngularJS Demo Theme</title>
 	<?php wp_head(); ?>
 </head>
 <body>
