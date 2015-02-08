@@ -31,10 +31,10 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 }]);
 
 //Content controller
-app.controller('Content', ['$scope', '$routeParams', '$http', '$sce', function($scope, $routeParams, $http, $sce) {
+app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
 	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
-		document.querySelector('title').innerHTML = $sce.trustAsHtml(res.title + ' | AngularJS Demo Theme');
+		document.querySelector('title').innerHTML = res.title + ' | AngularJS Demo Theme';
 	});
 }]);
 
