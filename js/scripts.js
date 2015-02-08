@@ -29,40 +29,56 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 app.run(['$rootScope', '$http', '$sce', function($rootScope, $http, $sce) {
 	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 		if ( current.$$route.title !== '' ) {
-			document.querySelector('title').innerHTML = $sce.trustAsHtml(current.$$route.title);
+			document.querySelector('title').innerHTML = $sce.trustAsHtml(current.$$route.title + ' | AngularJS Demo Theme');
 		}
 	});
 }]);
 
 //Main controller
-app.controller('Main', ['$scope', '$http', function($scope, $http) {
-	$http.get('wp-json/posts/').success(function(res){
+app.controller('Main', ['$scope', 'Posts', function($scope, Posts) {
+	Posts.get().success(function(res){
 		$scope.posts = res;
 	});
 }]);
 
 //Content controller
-app.controller('Content', ['$scope', '$routeParams', '$http', '$sce', function($scope, $routeParams, $http, $sce) {
-	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
+app.controller('Content', ['$scope', '$routeParams', 'Posts', '$sce', function($scope, $routeParams, Posts, $sce) {
+	Posts.getSingle($routeParams.ID).success(function(res){
 		$scope.post = res;
-		document.querySelector('title').innerHTML = $sce.trustAsHtml(res.title);
+		document.querySelector('title').innerHTML = $sce.trustAsHtml(res.title + ' | AngularJS Demo Theme');
 	});
 }]);
 
 //searchForm Directive
-app.directive('searchForm', function() {
+app.directive('searchForm', ['Posts', function(Posts) {
 	return {
 		restrict: 'EA',
 		template: 'Search Keyword: <input type="text" name="s" ng-model="filter.s" ng-change="search()">',
-		controller: ['$scope', '$http', function ( $scope, $http ) {
+		controller: ['$scope', function ($scope) {
 			$scope.filter = {
 				s: ''
 			};
 			$scope.search = function() {
-				$http.get('wp-json/posts/?filter[s]=' + $scope.filter.s).success(function(res){
+				var filter = 'filter[s]=' + $scope.filter.s;
+				Posts.getByFilter(filter).success(function(res){
 					$scope.posts = res;
 				});
 			};
 		}]
 	};
-});
+}]);
+
+//Posts Service
+app.service('Posts', ['$http', function($http){
+	this.get = function () {
+		return $http.get('wp-json/posts/');
+	};
+
+	this.getByFilter = function(filter) {
+		return $http.get('wp-json/posts/?'+filter);
+	};
+
+	this.getSingle = function(id) {
+		return $http.get('wp-json/posts/'+id);
+	};
+}]);
