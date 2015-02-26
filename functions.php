@@ -35,7 +35,7 @@ add_action( 'wp_enqueue_scripts', 'my_scripts' );
 
 function my_add_link_target( $html ) {
 
-	$html = preg_replace( '/(">)/', '" target="_self">', $html );
+	$html = preg_replace( '/(<a.*")>/', '$1 target="_self">', $html );
 	return $html;
 }
 add_filter( 'image_send_to_editor', 'my_add_link_target', 10 );
