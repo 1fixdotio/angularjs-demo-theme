@@ -40,4 +40,15 @@ function my_add_link_target( $html ) {
 }
 add_filter( 'image_send_to_editor', 'my_add_link_target', 10 );
 
+add_filter( 'query_vars', function( $query_vars ) {
+	$query_vars[] = 'post_parent';
+	return $query_vars;
+});
+
 // add_filter('show_admin_bar', '__return_false');
+
+function my_theme_setup() {
+
+	add_theme_support( 'post-thumbnails' );
+}
+add_action( 'after_setup_theme', 'my_theme_setup' );
