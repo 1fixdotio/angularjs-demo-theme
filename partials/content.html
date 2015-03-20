@@ -1,7 +1,7 @@
 <h1 ng-bind-html="post.title"></h1>
-<slick dots="true" autoplay="true" infinite="true" slides-to-show="1" slides-to-scroll="1" init-onload="true" data="media" style="width:300px">
+<slick dots="true" autoplay="true" slides-to-show="1" slides-to-scroll="1" init-onload="true" data="media" style="width:300px">
 	<div ng-repeat="image in media">
-		<img ng-src="{{image.attachment_meta.sizes.medium.url}}" />
+		<img alt="{{image.title}}" ng-src="{{image.attachment_meta.sizes.medium.url}}" />
 	</div>
 </slick>
 <div ng-bind-html="post.content"></div>
