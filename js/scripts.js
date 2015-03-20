@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngSanitize']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'slick']);
 
 //Config the route
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -44,6 +44,12 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
 		document.querySelector('title').innerHTML = res.title + ' | AngularJS Demo Theme';
+	});
+
+	$http.get('wp-json/media?filter[post_parent]=' + $routeParams.ID).success(function(res){
+		if ( res.length > 1 ) {
+			$scope.media = res;
+		}
 	});
 }]);
 
