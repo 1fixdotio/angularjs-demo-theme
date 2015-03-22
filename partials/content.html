@@ -1,6 +1,6 @@
 <h1 ng-bind-html="post.title"></h1>
 <slick dots="true" autoplay="true" slides-to-show="1" slides-to-scroll="1" init-onload="true" data="media" style="width:300px">
-	<div ng-repeat="image in media">
+	<div ng-if="image.is_image" ng-repeat="image in media">
 		<img alt="{{image.title}}" ng-src="{{image.attachment_meta.sizes.medium.url}}" />
 	</div>
 </slick>
