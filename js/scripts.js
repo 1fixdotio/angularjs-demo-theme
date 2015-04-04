@@ -84,7 +84,7 @@ app.controller('Paged', ['$scope', '$routeParams', '$http', function($scope, $ro
 	});
 
 	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
-		$scope.currentPage = $routeParams.page;
+		$scope.currentPage = parseInt($routeParams.page);
 		$scope.totalPages = headers('X-WP-TotalPages');
 
 		$scope.posts = res;
@@ -108,5 +108,13 @@ app.directive('searchForm', function() {
 				});
 			};
 		}]
+	};
+});
+
+//postsNavLink Directive
+app.directive('postsNavLink', function() {
+	return {
+		restrict: 'EA',
+		templateUrl: myLocalized.partials + 'posts-nav-link.html'
 	};
 });
