@@ -21,6 +21,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
+	.when('/page/:page', {
+		templateUrl: myLocalized.partials + 'main.html',
+		controller: 'Paged'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});
@@ -32,10 +36,13 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 		$scope.categories = res;
 	});
 
-	$http.get('wp-json/posts/').success(function(res){
+	$http.get('wp-json/posts/').success(function(res, status, headers){
 		$scope.posts = res;
 		$scope.pageTitle = 'Latest Posts:';
 		document.querySelector('title').innerHTML = 'Home | AngularJS Demo Theme';
+
+		$scope.currentPage = 1;
+		$scope.totalPages = headers('X-WP-TotalPages');
 	});
 }]);
 
@@ -67,6 +74,22 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 		$http.get('wp-json/posts/?filter[category_name]=' + res.name).success(function(res){
 			$scope.posts = res;
 		});
+	});
+}]);
+
+//Paged controller
+app.controller('Paged', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+	$http.get('wp-json/taxonomies/category/terms').success(function(res){
+		$scope.categories = res;
+	});
+
+	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
+		$scope.currentPage = $routeParams.page;
+		$scope.totalPages = headers('X-WP-TotalPages');
+
+		$scope.posts = res;
+		$scope.pageTitle = 'Posts on Page ' + $scope.currentPage + ':';
+		document.querySelector('title').innerHTML = 'Page ' + $scope.currentPage + ' | AngularJS Demo Theme';
 	});
 }]);
 
