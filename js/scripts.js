@@ -115,6 +115,10 @@ app.directive('searchForm', function() {
 app.directive('postsNavLink', function() {
 	return {
 		restrict: 'EA',
-		templateUrl: myLocalized.partials + 'posts-nav-link.html'
+		templateUrl: myLocalized.partials + 'posts-nav-link.html',
+		controller: ['$scope', '$element', function( $scope, $element ){
+			$scope.prevLabel = ( ! $element.attr('prev-label') ) ? 'Previous Page' : $element.attr('prev-label');
+			$scope.nextLabel = ( ! $element.attr('next-label') ) ? 'Next Page' : $element.attr('next-label');
+		}]
 	};
 });
