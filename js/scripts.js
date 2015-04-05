@@ -45,11 +45,8 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 		$scope.pageTitle = 'Latest Posts:';
 		document.querySelector('title').innerHTML = 'Home | AngularJS Demo Theme';
 
-		$scope.postsNavLink = {
-			currentPage: 1,
-			totalPages: headers('X-WP-TotalPages'),
-			nextLink: 'page/2'
-		};
+		$scope.currentPage = 1;
+		$scope.totalPages = headers('X-WP-TotalPages');
 	});
 }]);
 
@@ -86,12 +83,8 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 		$http.get(request).success(function(res, status, headers){
 			$scope.posts = res;
 
-			$scope.postsNavLink = {
-				currentPage: currentPage,
-				totalPages: headers('X-WP-TotalPages'),
-				prevLink: 'category/' + $routeParams.category + '/page/' + ( currentPage - 1 ),
-				nextLink: 'category/' + $routeParams.category + '/page/' + ( currentPage + 1 )
-			};
+			$scope.currentPage = currentPage;
+			$scope.totalPages = headers('X-WP-TotalPages');
 		});
 	});
 }]);
@@ -104,12 +97,8 @@ app.controller('Paged', ['$scope', '$routeParams', '$http', function($scope, $ro
 
 	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
 		var currentPage = parseInt($routeParams.page);
-		$scope.postsNavLink = {
-			currentPage: currentPage,
-			totalPages: headers('X-WP-TotalPages'),
-			prevLink: 'page/' + ( currentPage - 1 ),
-			nextLink: 'page/' + ( currentPage + 1 )
-		};
+		$scope.currentPage = currentPage;
+		$scope.totalPages = headers('X-WP-TotalPages');
 
 		$scope.posts = res;
 		$scope.pageTitle = 'Posts on Page ' + $scope.currentPage + ':';
@@ -140,9 +129,16 @@ app.directive('postsNavLink', function() {
 	return {
 		restrict: 'EA',
 		templateUrl: myLocalized.partials + 'posts-nav-link.html',
-		controller: ['$scope', '$element', function( $scope, $element ){
-			$scope.prevLabel = ( ! $element.attr('prev-label') ) ? 'Previous Page' : $element.attr('prev-label');
-			$scope.nextLabel = ( ! $element.attr('next-label') ) ? 'Next Page' : $element.attr('next-label');
+		controller: ['$scope', '$element', '$routeParams', function( $scope, $element, $routeParams ){
+			var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page ),
+			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'category/page/';
+
+			$scope.postsNavLink = {
+				prevLink: linkPrefix + ( currentPage - 1 ),
+				nextLink: linkPrefix + ( currentPage + 1 ),
+				prevLabel: ( ! $element.attr('prev-label') ) ? 'Previous Page' : $element.attr('prev-label'),
+				nextLabel: ( ! $element.attr('next-label') ) ? 'Next Page' : $element.attr('next-label')
+			};
 		}]
 	};
 });
