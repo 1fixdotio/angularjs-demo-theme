@@ -17,7 +17,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	})
-	.when('/category/:category', {
+	.when('/category/:category/', {
+		templateUrl: myLocalized.partials + 'main.html',
+		controller: 'Category'
+	})
+	.when('/category/:category/page/:page', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
@@ -43,6 +47,7 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 
 		$scope.currentPage = 1;
 		$scope.totalPages = headers('X-WP-TotalPages');
+		$scope.nextLink = 'page/' + ( $scope.currentPage + 1 );
 	});
 }]);
 
@@ -67,12 +72,21 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 	});
 
 	$http.get('wp-json/taxonomies/category/terms/' + $routeParams.category).success(function(res){
+		request = 'wp-json/posts/?filter[category_name]=' + res.name;
+		if ( $routeParams.page )
+			request += '&page=' + $routeParams.page;
+
 		$scope.current_category_id = $routeParams.category;
-		$scope.pageTitle = 'Posts in ' + res.name + ':';
+		$scope.currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page );
+		$scope.pageTitle = 'Posts in ' + res.name + ' Page ' + $scope.currentPage + ':';
 		document.querySelector('title').innerHTML = 'Category: ' + res.name + ' | AngularJS Demo Theme';
 
-		$http.get('wp-json/posts/?filter[category_name]=' + res.name).success(function(res){
+		$http.get(request).success(function(res, status, headers){
 			$scope.posts = res;
+
+			$scope.totalPages = headers('X-WP-TotalPages');
+			$scope.prevLink = 'category/' + $routeParams.category + '/page/' + ( $scope.currentPage - 1 );
+			$scope.nextLink = 'category/' + $routeParams.category + '/page/' + ( $scope.currentPage + 1 );
 		});
 	});
 }]);
@@ -86,6 +100,8 @@ app.controller('Paged', ['$scope', '$routeParams', '$http', function($scope, $ro
 	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
 		$scope.currentPage = parseInt($routeParams.page);
 		$scope.totalPages = headers('X-WP-TotalPages');
+		$scope.prevLink = 'page/' + ( $scope.currentPage - 1 );
+		$scope.nextLink = 'page/' + ( $scope.currentPage + 1 );
 
 		$scope.posts = res;
 		$scope.pageTitle = 'Posts on Page ' + $scope.currentPage + ':';
