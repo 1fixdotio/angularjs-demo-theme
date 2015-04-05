@@ -45,9 +45,11 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 		$scope.pageTitle = 'Latest Posts:';
 		document.querySelector('title').innerHTML = 'Home | AngularJS Demo Theme';
 
-		$scope.currentPage = 1;
-		$scope.totalPages = headers('X-WP-TotalPages');
-		$scope.nextLink = 'page/' + ( $scope.currentPage + 1 );
+		$scope.postsNavLink = {
+			currentPage: 1,
+			totalPages: headers('X-WP-TotalPages'),
+			nextLink: 'page/2'
+		};
 	});
 }]);
 
@@ -72,21 +74,24 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 	});
 
 	$http.get('wp-json/taxonomies/category/terms/' + $routeParams.category).success(function(res){
-		request = 'wp-json/posts/?filter[category_name]=' + res.name;
-		if ( $routeParams.page )
-			request += '&page=' + $routeParams.page;
-
 		$scope.current_category_id = $routeParams.category;
-		$scope.currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page );
-		$scope.pageTitle = 'Posts in ' + res.name + ' Page ' + $scope.currentPage + ':';
+		var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page );
+		$scope.pageTitle = 'Posts in ' + res.name + ' Page ' + currentPage + ':';
 		document.querySelector('title').innerHTML = 'Category: ' + res.name + ' | AngularJS Demo Theme';
 
+		var request = 'wp-json/posts/?filter[category_name]=' + res.name;
+		if ( $routeParams.page ) {
+			request += '&page=' + $routeParams.page;
+		}
 		$http.get(request).success(function(res, status, headers){
 			$scope.posts = res;
 
-			$scope.totalPages = headers('X-WP-TotalPages');
-			$scope.prevLink = 'category/' + $routeParams.category + '/page/' + ( $scope.currentPage - 1 );
-			$scope.nextLink = 'category/' + $routeParams.category + '/page/' + ( $scope.currentPage + 1 );
+			$scope.postsNavLink = {
+				currentPage: currentPage,
+				totalPages: headers('X-WP-TotalPages'),
+				prevLink: 'category/' + $routeParams.category + '/page/' + ( currentPage - 1 ),
+				nextLink: 'category/' + $routeParams.category + '/page/' + ( currentPage + 1 )
+			};
 		});
 	});
 }]);
@@ -98,10 +103,13 @@ app.controller('Paged', ['$scope', '$routeParams', '$http', function($scope, $ro
 	});
 
 	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
-		$scope.currentPage = parseInt($routeParams.page);
-		$scope.totalPages = headers('X-WP-TotalPages');
-		$scope.prevLink = 'page/' + ( $scope.currentPage - 1 );
-		$scope.nextLink = 'page/' + ( $scope.currentPage + 1 );
+		var currentPage = parseInt($routeParams.page);
+		$scope.postsNavLink = {
+			currentPage: currentPage,
+			totalPages: headers('X-WP-TotalPages'),
+			prevLink: 'page/' + ( currentPage - 1 ),
+			nextLink: 'page/' + ( currentPage + 1 )
+		};
 
 		$scope.posts = res;
 		$scope.pageTitle = 'Posts on Page ' + $scope.currentPage + ':';

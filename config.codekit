@@ -1184,6 +1184,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/partials\/posts-nav-link.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/partials\/posts-nav-link.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/README.md": {
 		"enableFootnoteSupport": 0,
 		"enableSmartyPants": 1,
@@ -1208,7 +1217,7 @@
 	},
 "hooks": [
 	],
-"lastSavedByUser": "Yoren Chang",
+"lastSavedByUser": "Chang Yoren",
 "manualImportLinks": {
 	},
 "projectAttributes": {
