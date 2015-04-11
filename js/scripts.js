@@ -140,8 +140,6 @@ app.directive('postsNavLink', function() {
 				prevLabel: ( ! $element.attr('prev-label') ) ? 'Previous Page' : $element.attr('prev-label'),
 				nextLabel: ( ! $element.attr('next-label') ) ? 'Next Page' : $element.attr('next-label')
 			};
-
-			console.log($scope.postsNavLink);
 		}]
 	};
 });
