@@ -131,14 +131,17 @@ app.directive('postsNavLink', function() {
 		templateUrl: myLocalized.partials + 'posts-nav-link.html',
 		controller: ['$scope', '$element', '$routeParams', function( $scope, $element, $routeParams ){
 			var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page ),
-			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'category/page/';
+			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'category/' + $routeParams.category + '/page/';
 
 			$scope.postsNavLink = {
 				prevLink: linkPrefix + ( currentPage - 1 ),
 				nextLink: linkPrefix + ( currentPage + 1 ),
+				sep: ( ! $element.attr('sep') ) ? '|' : $element.attr('sep'),
 				prevLabel: ( ! $element.attr('prev-label') ) ? 'Previous Page' : $element.attr('prev-label'),
 				nextLabel: ( ! $element.attr('next-label') ) ? 'Next Page' : $element.attr('next-label')
 			};
+
+			console.log($scope.postsNavLink);
 		}]
 	};
 });
