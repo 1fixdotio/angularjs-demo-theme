@@ -17,11 +17,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	})
-	.when('/category/:category/', {
+	.when('/blog/category/:category/', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
-	.when('/category/:category/page/:page', {
+	.when('/blog/category/:category/page/:page', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
@@ -70,13 +70,13 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 		$scope.categories = res;
 	});
 
-	$http.get('wp-json/taxonomies/category/terms/' + $routeParams.category).success(function(res){
-		$scope.current_category_id = $routeParams.category;
+	$http.get('wp-json/taxonomies/category/terms/?filter[slug]=' + $routeParams.category).success(function(res){
+		$scope.current_category_id = res[0].ID;
 		var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page );
-		$scope.pageTitle = 'Posts in ' + res.name + ' Page ' + currentPage + ':';
-		document.querySelector('title').innerHTML = 'Category: ' + res.name + ' | AngularJS Demo Theme';
+		$scope.pageTitle = 'Posts in ' + res[0].name + ' Page ' + currentPage + ':';
+		document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
 
-		var request = 'wp-json/posts/?filter[category_name]=' + res.name;
+		var request = 'wp-json/posts/?filter[category_name]=' + res[0].name;
 		if ( $routeParams.page ) {
 			request += '&page=' + $routeParams.page;
 		}
@@ -131,7 +131,7 @@ app.directive('postsNavLink', function() {
 		templateUrl: myLocalized.partials + 'posts-nav-link.html',
 		controller: ['$scope', '$element', '$routeParams', function( $scope, $element, $routeParams ){
 			var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page ),
-			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'category/' + $routeParams.category + '/page/';
+			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'blog/category/' + $routeParams.category + '/page/';
 
 			$scope.postsNavLink = {
 				prevLink: linkPrefix + ( currentPage - 1 ),
