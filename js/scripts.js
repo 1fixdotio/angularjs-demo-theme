@@ -17,7 +17,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	})
-	.when('/category/:category', {
+	.when('/blog/category/:category', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
@@ -53,12 +53,12 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 		$scope.categories = res;
 	});
 
-	$http.get('wp-json/taxonomies/category/terms/' + $routeParams.category).success(function(res){
-		$scope.current_category_id = $routeParams.category;
-		$scope.pageTitle = 'Posts in ' + res.name + ':';
-		document.querySelector('title').innerHTML = 'Category: ' + res.name + ' | AngularJS Demo Theme';
+	$http.get('wp-json/taxonomies/category/terms/?filter[slug]=' + $routeParams.category).success(function(res){
+		$scope.current_category_id = res[0].ID;
+		$scope.pageTitle = 'Posts in ' + res[0].name + ':';
+		document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
 
-		$http.get('wp-json/posts/?filter[category_name]=' + res.name).success(function(res){
+		$http.get('wp-json/posts/?filter[category_name]=' + res[0].name).success(function(res){
 			$scope.posts = res;
 		});
 	});
