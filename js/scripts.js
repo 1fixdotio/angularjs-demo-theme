@@ -17,11 +17,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	})
-	.when('/blog/category/:category/', {
+	.when('/category/:category/', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
-	.when('/blog/category/:category/page/:page', {
+	.when('/category/:category/page/:page', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
@@ -131,7 +131,7 @@ app.directive('postsNavLink', function() {
 		templateUrl: myLocalized.partials + 'posts-nav-link.html',
 		controller: ['$scope', '$element', '$routeParams', function( $scope, $element, $routeParams ){
 			var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page ),
-			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'blog/category/' + $routeParams.category + '/page/';
+			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'category/' + $routeParams.category + '/page/';
 
 			$scope.postsNavLink = {
 				prevLink: linkPrefix + ( currentPage - 1 ),

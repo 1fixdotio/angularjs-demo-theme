@@ -3,7 +3,7 @@
 <ul>
 	<li ng-repeat="category in categories">
 		<span ng-if="current_category_id && category.ID == current_category_id" ng-bind-html="category.name"></span>
-		<a ng-if="!current_category_id || category.ID != current_category_id" href="blog/category/{{category.slug}}" ng-bind-html="category.name"></a>
+		<a ng-if="!current_category_id || category.ID != current_category_id" href="category/{{category.slug}}" ng-bind-html="category.name"></a>
 	</li>
 </ul>
 <p>{{pageTitle}}</p>
