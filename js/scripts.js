@@ -116,8 +116,12 @@ app.directive('searchForm', function() {
 				s: ''
 			};
 			$scope.search = function() {
-				$http.get('wp-json/posts/?filter[s]=' + $scope.filter.s).success(function(res){
+				$http.get('wp-json/posts/?filter[s]=' + $scope.filter.s + '&filter[posts_per_page]=-1').success(function(res){
 					$scope.posts = res;
+					$scope.pageTitle = 'Search Results:';
+
+					$scope.currentPage = 1;
+					$scope.totalPages = 1;
 				});
 			};
 		}]
