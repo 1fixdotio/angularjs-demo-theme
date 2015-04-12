@@ -17,7 +17,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	})
-	.when('/blog/category/:category', {
+	.when('/category/:category', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
