@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="/jsonapi/">
+	<base href="<?php $url_info = parse_url( site_url() ); echo trailingslashit( $url_info['path'] ); ?>">
 	<title>Home | AngularJS Demo Theme</title>
 	<?php wp_head(); ?>
 </head>
