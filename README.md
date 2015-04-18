@@ -42,4 +42,4 @@ Shoot me an email: yoren [at] 1fix.io
 
 ## License, Copyright etc.
 
-Copyright 2014 [Yoren Chang](https://1fix.io) Licensed under the terms of the [GNU General Public License version 2](http://www.gnu.org/licenses/gpl-2.0.html) or later. Please share with your neighbor. (Words courtesy of [Josh Pollock](http://JoshPress.net).)
+Copyright 2014-15 [Yoren Chang](https://1fix.io) Licensed under the terms of the [GNU General Public License version 2](http://www.gnu.org/licenses/gpl-2.0.html) or later. Please share with your neighbor. (Words courtesy of [Josh Pollock](http://JoshPress.net).)
