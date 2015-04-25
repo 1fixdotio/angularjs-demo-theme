@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="<?php $url_info = parse_url( site_url() ); echo trailingslashit( $url_info['path'] ); ?>">
+	<base href="<?php $url_info = parse_url( home_url() ); echo trailingslashit( $url_info['path'] ); ?>">
 	<title>Home | AngularJS Demo Theme</title>
 	<?php wp_head(); ?>
 </head>
@@ -9,7 +9,7 @@
 	<div id="page" ng-app="app">
 		<header>
 			<h1>
-				<a href="<?php echo site_url(); ?>">AngularJS Demo Theme</a>
+				<a href="<?php echo home_url(); ?>">AngularJS Demo Theme</a>
 			</h1>
 		</header>
 
