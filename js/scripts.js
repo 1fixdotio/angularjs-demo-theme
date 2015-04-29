@@ -29,7 +29,7 @@ app.controller('Main', ['$scope', '$http', function($scope, $http) {
 //Content controller
 app.controller('Content', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
 	$http.get('wp-json/posts/?filter[name]=' + $routeParams.slug).success(function(res){
-		$scope.posts = res;
+		$scope.post = res[0];
 	});
 }]);
 
