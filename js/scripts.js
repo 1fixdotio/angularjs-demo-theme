@@ -56,6 +56,12 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 	$http.get('wp-json/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
 		document.querySelector('title').innerHTML = res.title + ' | AngularJS Demo Theme';
+	}).error(function(res, status){
+		if (status === 404) {
+			$scope.is404 = true;
+			document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
+			$scope.errorMessage = 'Error: ' + res[0].message;
+		}
 	});
 
 	$http.get('wp-json/media?filter[post_parent]=' + $routeParams.ID).success(function(res){
