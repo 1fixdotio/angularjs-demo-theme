@@ -78,21 +78,26 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 	});
 
 	$http.get('wp-json/taxonomies/category/terms/?filter[slug]=' + $routeParams.category).success(function(res){
-		$scope.current_category_id = res[0].ID;
-		var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page );
-		$scope.pageTitle = 'Posts in ' + res[0].name + ' Page ' + currentPage + ':';
-		document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
+		if (!res.length) {
+			document.querySelector('title').innerHTML = 'Category not found | AngularJS Demo Theme';
+			$scope.pageTitle = 'Category not found';
+		} else {
+			$scope.current_category_id = res[0].ID;
+			var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page );
+			$scope.pageTitle = 'Posts in ' + res[0].name + ' Page ' + currentPage + ':';
+			document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
 
-		var request = 'wp-json/posts/?filter[category_name]=' + res[0].name;
-		if ( $routeParams.page ) {
-			request += '&page=' + $routeParams.page;
+			var request = 'wp-json/posts/?filter[category_name]=' + res[0].name;
+			if ( $routeParams.page ) {
+				request += '&page=' + $routeParams.page;
+			}
+			$http.get(request).success(function(res, status, headers){
+				$scope.posts = res;
+
+				$scope.currentPage = currentPage;
+				$scope.totalPages = headers('X-WP-TotalPages');
+			});
 		}
-		$http.get(request).success(function(res, status, headers){
-			$scope.posts = res;
-
-			$scope.currentPage = currentPage;
-			$scope.totalPages = headers('X-WP-TotalPages');
-		});
 	});
 }]);
 

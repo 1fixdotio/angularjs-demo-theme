@@ -14,6 +14,7 @@
 		<div ng-bind-html="post.excerpt"></div>
 	</li>
 </ul>
+<p ng-if="is404">{{errorMessage}}</p>
 <posts-nav-link prev-label="&laquo; Previous Page" next-label="Next Page &raquo;"></posts-nav-link>
 
 <br />
