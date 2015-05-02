@@ -30,7 +30,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		controller: 'Paged'
 	})
 	.otherwise({
-		redirectTo: '/'
+		templateUrl: myLocalized.partials + '404.html',
+		controller: '404'
 	});
 }]);
 
@@ -126,6 +127,11 @@ app.directive('searchForm', function() {
 			};
 		}]
 	};
+});
+
+//404 controller
+app.controller('404', function() {
+	document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
 });
 
 //postsNavLink Directive
