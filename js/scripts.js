@@ -89,13 +89,18 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 
 			var request = 'wp-json/posts/?filter[category_name]=' + res[0].name;
 			if ( $routeParams.page ) {
-				request += '&page=' + $routeParams.page;
+				request += '&page=' + currentPage;
 			}
 			$http.get(request).success(function(res, status, headers){
-				$scope.posts = res;
+				if ( $routeParams.page && ( isNaN(currentPage) || currentPage > headers('X-WP-TotalPages') ) ) {
+					document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
+					$scope.pageTitle = 'Page not found';
+				} else {
+					$scope.posts = res;
 
-				$scope.currentPage = currentPage;
-				$scope.totalPages = headers('X-WP-TotalPages');
+					$scope.currentPage = currentPage;
+					$scope.totalPages = headers('X-WP-TotalPages');
+				}
 			});
 		}
 	});
