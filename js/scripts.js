@@ -109,12 +109,18 @@ app.controller('Paged', ['$scope', '$routeParams', '$http', function($scope, $ro
 
 	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
 		var currentPage = parseInt($routeParams.page);
-		$scope.currentPage = currentPage;
-		$scope.totalPages = headers('X-WP-TotalPages');
 
-		$scope.posts = res;
-		$scope.pageTitle = 'Posts on Page ' + $scope.currentPage + ':';
-		document.querySelector('title').innerHTML = 'Page ' + $scope.currentPage + ' | AngularJS Demo Theme';
+		if ( isNaN(currentPage) || currentPage > headers('X-WP-TotalPages') ) {
+			document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
+			$scope.pageTitle = 'Page not found';
+		} else {
+			$scope.currentPage = currentPage;
+			$scope.totalPages = headers('X-WP-TotalPages');
+
+			$scope.posts = res;
+			$scope.pageTitle = 'Posts on Page ' + $scope.currentPage + ':';
+			document.querySelector('title').innerHTML = 'Page ' + $scope.currentPage + ' | AngularJS Demo Theme';
+		}
 	});
 }]);
 
