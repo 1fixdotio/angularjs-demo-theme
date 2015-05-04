@@ -43,6 +43,11 @@ function my_scripts() {
 		get_stylesheet_directory_uri() . '/bower_components/slick-carousel/slick/slick.css'
 	);
 
+	wp_enqueue_style(
+		'slick-theme-css',
+		get_stylesheet_directory_uri() . '/bower_components/slick-carousel/slick/slick-theme.css'
+	);
+
 	wp_localize_script(
 		'my-scripts',
 		'myLocalized',

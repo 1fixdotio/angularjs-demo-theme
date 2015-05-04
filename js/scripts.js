@@ -64,7 +64,7 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 		}
 	});
 
-	$http.get('wp-json/media?filter[post_parent]=' + $routeParams.ID).success(function(res){
+	$http.get('wp-json/media?filter[post_parent]=' + $routeParams.ID + '&filter[posts_per_page]=-1').success(function(res){
 		if ( res.length > 1 ) {
 			$scope.media = res;
 		}
