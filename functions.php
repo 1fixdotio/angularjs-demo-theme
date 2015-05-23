@@ -38,6 +38,11 @@ function my_scripts() {
 		array( 'my-jquery', 'angularjs', 'angularjs-route', 'angularjs-sanitize', 'slick-carousel', 'angularjs-slick' )
 	);
 
+	wp_enqueue_script(
+		'wp-service',
+		get_stylesheet_directory_uri() . '/js/WPService.min.js'
+	);
+
 	wp_enqueue_style(
 		'slick-css',
 		get_stylesheet_directory_uri() . '/bower_components/slick-carousel/slick/slick.css'

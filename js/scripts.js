@@ -36,10 +36,9 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 }]);
 
 //Main controller
-app.controller('Main', ['$scope', '$http', function($scope, $http) {
-	$http.get('wp-json/taxonomies/category/terms').success(function(res){
-		$scope.categories = res;
-	});
+app.controller('Main', ['$scope', '$http', 'WPService', function($scope, $http, WPService) {
+	WPService.getAllCategories();
+	$scope.data = WPService;
 
 	$http.get('wp-json/posts/').success(function(res, status, headers){
 		$scope.posts = res;
@@ -72,10 +71,9 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 }]);
 
 //Category controller
-app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-	$http.get('wp-json/taxonomies/category/terms').success(function(res){
-		$scope.categories = res;
-	});
+app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
+	WPService.getAllCategories();
+	$scope.data = WPService;
 
 	$http.get('wp-json/taxonomies/category/terms/?filter[slug]=' + $routeParams.category).success(function(res){
 		if (!res.length) {
@@ -107,10 +105,9 @@ app.controller('Category', ['$scope', '$routeParams', '$http', function($scope, 
 }]);
 
 //Paged controller
-app.controller('Paged', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-	$http.get('wp-json/taxonomies/category/terms').success(function(res){
-		$scope.categories = res;
-	});
+app.controller('Paged', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
+	WPService.getAllCategories();
+	$scope.data = WPService;
 
 	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
 		var currentPage = parseInt($routeParams.page);
