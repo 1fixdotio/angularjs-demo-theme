@@ -36,6 +36,8 @@ Just install it like any WordPress theme.
 
 12. [When Page Not Found In Your AngularJS WordPress Theme](https://1fix.io/blog/2015/05/03/page-not-found-angular-wordpress-theme/): A good developer should always keep an eye on error responses from the application. Let’s start with the popular “page not found” error and see how to deal with it.
 
+13. [Improving Your AngularJS WordPress Theme With A Service](https://1fix.io/blog/2015/05/26/service-angularjs-wordpress-theme/): The first tutorial we talk about AngularJS `servcies`. We'll introduce how to **share data between controllers** by creating a new `service` called `WPService`.
+
 **More content to go. Stay tuned.**
 
 ## Contact
