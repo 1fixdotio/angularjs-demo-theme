@@ -38,16 +38,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 //Main controller
 app.controller('Main', ['$scope', '$http', 'WPService', function($scope, $http, WPService) {
 	WPService.getAllCategories();
+	WPService.getPosts(1);
 	$scope.data = WPService;
-
-	$http.get('wp-json/posts/').success(function(res, status, headers){
-		$scope.posts = res;
-		$scope.pageTitle = 'Latest Posts:';
-		document.querySelector('title').innerHTML = 'Home | AngularJS Demo Theme';
-
-		$scope.currentPage = 1;
-		$scope.totalPages = headers('X-WP-TotalPages');
-	});
 }]);
 
 //Content controller

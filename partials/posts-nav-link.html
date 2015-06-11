@@ -1,5 +1,5 @@
 <div class="posts-nav-link">
-	<a ng-if="currentPage>1" href="{{postsNavLink.prevLink}}" class="prev-link">{{postsNavLink.prevLabel}}</a>
-	<span ng-if="currentPage>1 && currentPage<totalPages" class="sep">{{postsNavLink.sep}}</span>
-	<a ng-if="currentPage<totalPages" href="{{postsNavLink.nextLink}}" class="next-link">{{postsNavLink.nextLabel}}</a>
+	<a ng-if="data.currentPage>1" href="{{postsNavLink.prevLink}}" class="prev-link">{{postsNavLink.prevLabel}}</a>
+	<span ng-if="data.currentPage>1 && data.currentPage<data.totalPages" class="sep">{{postsNavLink.sep}}</span>
+	<a ng-if="data.currentPage<data.totalPages" href="{{postsNavLink.nextLink}}" class="next-link">{{postsNavLink.nextLabel}}</a>
 </div>
