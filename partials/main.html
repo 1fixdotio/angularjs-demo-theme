@@ -6,7 +6,7 @@
 		<a ng-if="!current_category_id || category.ID != current_category_id" href="category/{{category.slug}}" ng-bind-html="category.name"></a>
 	</li>
 </ul>
-<p>{{pageTitle}}</p>
+<p>{{data.pageTitle}}</p>
 <ul>
 	<li ng-repeat="post in data.posts">
 		<a href="blog/{{post.ID}}" ng-bind-html="post.title"></a>
