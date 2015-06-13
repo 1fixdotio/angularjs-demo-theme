@@ -8,6 +8,11 @@ function WPService($http) {
 		totalPages: 1
 	};
 
+	function _updateTitle(documentTitle, pageTitle) {
+		document.querySelector('title').innerHTML = documentTitle + ' | AngularJS Demo Theme';
+		WPService.pageTitle = pageTitle;
+	}
+
 	WPService.getAllCategories = function() {
 		if (WPService.categories.length) {
 			return;
@@ -20,10 +25,9 @@ function WPService($http) {
 
 	WPService.getPosts = function(page) {
 		return $http.get('wp-json/posts/').success(function(res, status, headers){
-			WPService.posts = res;
-			WPService.pageTitle = 'Latest Posts:';
-			document.querySelector('title').innerHTML = 'Home | AngularJS Demo Theme';
+			_updateTitle('Home', 'Latest Posts:');
 
+			WPService.posts = res;
 			WPService.currentPage = page;
 			WPService.totalPages = headers('X-WP-TotalPages');
 		});
