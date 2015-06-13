@@ -24,7 +24,7 @@ function WPService($http) {
 	};
 
 	WPService.getPosts = function(page) {
-		return $http.get('wp-json/posts/').success(function(res, status, headers){
+		return $http.get('wp-json/posts/?page=' + page).success(function(res, status, headers){
 			_updateTitle('Home', 'Latest Posts:');
 
 			WPService.posts = res;
