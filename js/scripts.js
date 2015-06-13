@@ -36,7 +36,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 }]);
 
 //Main controller
-app.controller('Main', ['$scope', '$http', 'WPService', function($scope, $http, WPService) {
+app.controller('Main', ['$scope', 'WPService', function($scope, WPService) {
 	WPService.getAllCategories();
 	WPService.getPosts(1);
 	$scope.data = WPService;
