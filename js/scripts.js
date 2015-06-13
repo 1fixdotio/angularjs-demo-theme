@@ -65,35 +65,16 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 //Category controller
 app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
 	WPService.getAllCategories();
-	$scope.data = WPService;
-
 	$http.get('wp-json/taxonomies/category/terms/?filter[slug]=' + $routeParams.category).success(function(res){
 		if (!res.length) {
 			document.querySelector('title').innerHTML = 'Category not found | AngularJS Demo Theme';
-			$scope.pageTitle = 'Category not found';
+			$scope.data.pageTitle = 'Category not found';
 		} else {
-			$scope.current_category_id = res[0].ID;
-			var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page );
-			$scope.pageTitle = 'Posts in ' + res[0].name + ' Page ' + currentPage + ':';
-			document.querySelector('title').innerHTML = 'Category: ' + res[0].name + ' | AngularJS Demo Theme';
-
-			var request = 'wp-json/posts/?filter[category_name]=' + res[0].name;
-			if ( $routeParams.page ) {
-				request += '&page=' + currentPage;
-			}
-			$http.get(request).success(function(res, status, headers){
-				if ( $routeParams.page && ( isNaN(currentPage) || currentPage > headers('X-WP-TotalPages') ) ) {
-					document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
-					$scope.pageTitle = 'Page not found';
-				} else {
-					$scope.posts = res;
-
-					$scope.currentPage = currentPage;
-					$scope.totalPages = headers('X-WP-TotalPages');
-				}
-			});
+			WPService.getPostsInCategory(res[0], $routeParams.page);
 		}
 	});
+
+	$scope.data = WPService;
 }]);
 
 //Paged controller

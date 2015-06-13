@@ -5,7 +5,8 @@ function WPService($http) {
 		posts: [],
 		pageTitle: 'Latest Posts:',
 		currentPage: 1,
-		totalPages: 1
+		totalPages: 1,
+		currentCategoryId: 0
 	};
 
 	function _updateTitle(documentTitle, pageTitle) {
@@ -52,6 +53,22 @@ function WPService($http) {
 			_updateTitle('Search Results for ' + s, 'Search Results:');
 
 			_setArchivePage(res,1,headers);
+		});
+	};
+
+	WPService.getPostsInCategory = function(category, page) {
+		WPService.currentCategoryId = category.ID;
+
+		page = ( ! page ) ? 1 : parseInt( page );
+		_updateTitle('Category: ' + category.name, 'Posts in ' + category.name + ' Page ' + page + ':');
+
+		var request = 'wp-json/posts/?filter[category_name]=' + category.name;
+		if ( page ) {
+			request += '&page=' + page;
+		}
+
+		return $http.get(request).success(function(res, status, headers){
+			_setArchivePage(res, page, headers);
 		});
 	};
 
