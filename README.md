@@ -38,6 +38,8 @@ Just install it like any WordPress theme.
 
 13. [Improving Your AngularJS WordPress Theme With A Service](https://1fix.io/blog/2015/05/26/service-angularjs-wordpress-theme/): The first tutorial we talk about AngularJS `servcies`. We'll introduce how to **share data between controllers** by creating a new `service` called `WPService`.
 
+14. [Tidy Up Your AngularJS WordPress Theme With A Service](https://1fix.io/blog/2015/06/13/tidyup-angularjs-wordpress-service/): It's the second post we talk about Angular services. We'll see how to use the `WPService` to **organize and share code across the theme**, which helps us tidy up our code.
+
 **More content to go. Stay tuned.**
 
 ## Contact
