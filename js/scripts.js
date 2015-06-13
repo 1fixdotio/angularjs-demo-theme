@@ -97,25 +97,10 @@ app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', func
 }]);
 
 //Paged controller
-app.controller('Paged', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
+app.controller('Paged', ['$scope', '$routeParams', 'WPService', function($scope, $routeParams, WPService) {
 	WPService.getAllCategories();
+	WPService.getPosts($routeParams.page);
 	$scope.data = WPService;
-
-	$http.get('wp-json/posts/?page=' + $routeParams.page).success(function(res, status, headers){
-		var currentPage = parseInt($routeParams.page);
-
-		if ( isNaN(currentPage) || currentPage > headers('X-WP-TotalPages') ) {
-			document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
-			$scope.pageTitle = 'Page not found';
-		} else {
-			$scope.currentPage = currentPage;
-			$scope.totalPages = headers('X-WP-TotalPages');
-
-			$scope.posts = res;
-			$scope.pageTitle = 'Posts on Page ' + $scope.currentPage + ':';
-			document.querySelector('title').innerHTML = 'Page ' + $scope.currentPage + ' | AngularJS Demo Theme';
-		}
-	});
 }]);
 
 //searchForm Directive

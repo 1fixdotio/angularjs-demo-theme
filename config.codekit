@@ -1361,7 +1361,7 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 2,
-		"syntaxCheckerStyle": 2
+		"syntaxCheckerStyle": 1
 		},
 	"\/js\/scripts.min.js": {
 		"fileType": 64,

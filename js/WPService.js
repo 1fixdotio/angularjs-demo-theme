@@ -25,11 +25,21 @@ function WPService($http) {
 
 	WPService.getPosts = function(page) {
 		return $http.get('wp-json/posts/?page=' + page).success(function(res, status, headers){
-			_updateTitle('Home', 'Latest Posts:');
+			page = parseInt(page);
 
-			WPService.posts = res;
-			WPService.currentPage = page;
-			WPService.totalPages = headers('X-WP-TotalPages');
+			if ( isNaN(page) || page > headers('X-WP-TotalPages') ) {
+				_updateTitle('Page Not Found', 'Page Not Found');
+			} else {
+				if (page>1) {
+					_updateTitle('Posts on Page ' + page, 'Posts on Page ' + page + ':');
+				} else {
+					_updateTitle('Home', 'Latest Posts:');
+				}
+
+				WPService.posts = res;
+				WPService.currentPage = page;
+				WPService.totalPages = headers('X-WP-TotalPages');
+			}
 		});
 	};
 
