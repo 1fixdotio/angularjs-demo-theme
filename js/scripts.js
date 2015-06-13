@@ -70,6 +70,7 @@ app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', func
 			document.querySelector('title').innerHTML = 'Category not found | AngularJS Demo Theme';
 			$scope.data.pageTitle = 'Category not found';
 		} else {
+			$scope.current_category_id = res[0].ID;
 			WPService.getPostsInCategory(res[0], $routeParams.page);
 		}
 	});

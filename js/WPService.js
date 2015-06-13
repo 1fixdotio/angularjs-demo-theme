@@ -5,8 +5,7 @@ function WPService($http) {
 		posts: [],
 		pageTitle: 'Latest Posts:',
 		currentPage: 1,
-		totalPages: 1,
-		currentCategoryId: 0
+		totalPages: 1
 	};
 
 	function _updateTitle(documentTitle, pageTitle) {
@@ -31,8 +30,6 @@ function WPService($http) {
 	};
 
 	WPService.getPosts = function(page) {
-		WPService.currentCategoryId = 0;
-
 		return $http.get('wp-json/posts/?page=' + page).success(function(res, status, headers){
 			page = parseInt(page);
 
@@ -59,8 +56,6 @@ function WPService($http) {
 	};
 
 	WPService.getPostsInCategory = function(category, page) {
-		WPService.currentCategoryId = category.ID;
-
 		page = ( ! page ) ? 1 : parseInt( page );
 		_updateTitle('Category: ' + category.name, 'Posts in ' + category.name + ' Page ' + page + ':');
 
