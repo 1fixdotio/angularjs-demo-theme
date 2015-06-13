@@ -13,6 +13,12 @@ function WPService($http) {
 		WPService.pageTitle = pageTitle;
 	}
 
+	function _setArchivePage(posts, page, headers) {
+		WPService.posts = posts;
+		WPService.currentPage = page;
+		WPService.totalPages = headers('X-WP-TotalPages');
+	}
+
 	WPService.getAllCategories = function() {
 		if (WPService.categories.length) {
 			return;
@@ -36,9 +42,7 @@ function WPService($http) {
 					_updateTitle('Home', 'Latest Posts:');
 				}
 
-				WPService.posts = res;
-				WPService.currentPage = page;
-				WPService.totalPages = headers('X-WP-TotalPages');
+				_setArchivePage(res,page,headers);
 			}
 		});
 	};
@@ -47,9 +51,7 @@ function WPService($http) {
 		return $http.get('wp-json/posts/?filter[s]=' + s + '&filter[posts_per_page]=-1').success(function(res, status, headers){
 			_updateTitle('Search Results for ' + s, 'Search Results:');
 
-			WPService.posts = res;
-			WPService.currentPage = 1;
-			WPService.totalPages = headers('X-WP-TotalPages');
+			_setArchivePage(res,1,headers);
 		});
 	};
 
