@@ -31,6 +31,8 @@ function WPService($http) {
 	};
 
 	WPService.getPosts = function(page) {
+		WPService.currentCategoryId = 0;
+
 		return $http.get('wp-json/posts/?page=' + page).success(function(res, status, headers){
 			page = parseInt(page);
 
