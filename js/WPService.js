@@ -43,6 +43,16 @@ function WPService($http) {
 		});
 	};
 
+	WPService.getSearchResults = function(s) {
+		return $http.get('wp-json/posts/?filter[s]=' + s + '&filter[posts_per_page]=-1').success(function(res, status, headers){
+			_updateTitle('Search Results for ' + s, 'Search Results:');
+
+			WPService.posts = res;
+			WPService.currentPage = 1;
+			WPService.totalPages = headers('X-WP-TotalPages');
+		});
+	};
+
 	return WPService;
 }
 

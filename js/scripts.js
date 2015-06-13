@@ -108,18 +108,12 @@ app.directive('searchForm', function() {
 	return {
 		restrict: 'EA',
 		template: 'Search Keyword: <input type="text" name="s" ng-model="filter.s" ng-change="search()">',
-		controller: ['$scope', '$http', function ( $scope, $http ) {
+		controller: ['$scope', 'WPService', function ( $scope, WPService ) {
 			$scope.filter = {
 				s: ''
 			};
 			$scope.search = function() {
-				$http.get('wp-json/posts/?filter[s]=' + $scope.filter.s + '&filter[posts_per_page]=-1').success(function(res){
-					$scope.posts = res;
-					$scope.pageTitle = 'Search Results:';
-
-					$scope.currentPage = 1;
-					$scope.totalPages = 1;
-				});
+				WPService.getSearchResults($scope.filter.s);
 			};
 		}]
 	};
