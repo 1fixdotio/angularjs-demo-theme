@@ -40,6 +40,10 @@ Just install it like any WordPress theme.
 
 14. [Tidy Up Your AngularJS WordPress Theme With A Service](https://1fix.io/blog/2015/06/13/tidyup-angularjs-wordpress-service/): It's the second post we talk about Angular services. We'll see how to use the `WPService` to **organize and share code across the theme**, which helps us tidy up our code.
 
+15. [Adding Fields To The JSON Response Of The WP REST API](https://1fix.io/blog/2015/06/26/adding-fields-wp-rest-api/): This post is only 10% related to AngularJS, but you’ll learn how to better work with AngularJS just by manipulating the fields in the JSON response of the WP REST API.
+
+16. [Getting Posts By Taxonomy Or Meta Field With WP-API v2.0](https://1fix.io/blog/2015/07/20/query-vars-wp-api/): The WP-API v2.0 works in a more WP_Query way, but there’re still a few concepts need to be clarified. Wanna know how many query parameters are available? Let’s dig into the source of WP-API and WordPress.
+
 **More content to go. Stay tuned.**
 
 ## Contact
