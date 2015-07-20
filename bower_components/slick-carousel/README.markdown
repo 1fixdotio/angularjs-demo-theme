@@ -16,23 +16,23 @@ CDN hosted slick is a great way to get set up quick:
 In your ```<head>``` add:
 
 ````
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.2/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css"/>
 
 // Add the slick-theme.css if you want default styling
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.2/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick-theme.css"/>
 ````
 
 Then, before your closing ```<body>``` tag add:
 
 ```
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.2/slick.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick.min.js"></script>
 ```
 
 #### Package Managers
 
 ````
 //Bower
-bower install --save slick.js
+bower install --save slick-carousel
 
 //NPM
 npm install slick-carousel
@@ -105,6 +105,7 @@ vertical | boolean | false | Vertical slide direction
 verticalSwiping | boolean | false | Changes swipe direction to vertical
 rtl | boolean | false | Change the slider's direction to become right-to-left
 waitForAnimate | boolean | true | Ignores requests to advance the slide while animating
+zIndex | number | 1000 | Set the zIndex values for slides, useful for IE9 and lower
 
 ### Events
 
@@ -133,6 +134,7 @@ Event | Params | Description
 afterChange | event, slick, currentSlide | After slide change callback
 beforeChange | event, slick, currentSlide, nextSlide | Before slide change callback
 breakpoint | event, slick, breakpoint | Fires after a breakpoint is hit
+destroy | event, slick | When slider is destroyed, or unslicked.
 edge | event, slick, direction | Fires when an edge is overscrolled in non-infinite mode.
 init | event, slick | When Slick initializes for the first time callback
 reInit | event, slick | Every time Slick (re-)initializes callback

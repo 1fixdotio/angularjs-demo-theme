@@ -34,6 +34,5 @@
   },
   "_source": "git://github.com/vasyabigi/angular-slick.git",
   "_target": "~0.2.1",
-  "_originalSource": "angular-slick",
-  "_direct": true
+  "_originalSource": "angular-slick"
 }

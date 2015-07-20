@@ -3,10 +3,11 @@
 ### Test case required
 
 **All bug reports and problem issues require a jsFiddle**.   
-[Please fork this JSFiddle as a baseline](http://jsfiddle.net/nemh9nzk/).
+[Please fork this JSFiddle as a baseline](http://jsfiddle.net/simeydotme/fmo50w7n/).
 
 + A test case clearly demonstrates the bug or issue.
 + It contains the bare minimum HTML, CSS, and JavaScript required to demonstrate the bug.
++ Assets are not minified (we cannot debug .min.js files).
 + A link to your production site is **not** a reduced test case.
 
 Providing a test case is the best way to get your issue addressed. Without a test case; your issue may be closed.  
