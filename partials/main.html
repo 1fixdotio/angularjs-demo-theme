@@ -9,9 +9,9 @@
 <p>{{data.pageTitle}}</p>
 <ul>
 	<li ng-repeat="post in data.posts">
-		<a href="blog/{{post.ID}}" ng-bind-html="post.title"></a>
-		<a href="blog/{{post.ID}}" ng-if="post.featured_image.attachment_meta.sizes.thumbnail.url"><img ng-src="{{post.featured_image.attachment_meta.sizes.thumbnail.url}}" alt="{{post.featured_image.title}}" /></a>
-		<div ng-bind-html="post.excerpt"></div>
+		<a href="blog/{{post.ID}}" ng-bind-html="post.title.rendered"></a>
+		<a href="blog/{{post.ID}}" ng-if="post.featured_image.attachment_meta.sizes.thumbnail.url"><img ng-src="{{post.featured_image.attachment_meta.sizes.thumbnail.url}}" alt="{{post.featured_image.title.rendered}}" /></a>
+		<div ng-bind-html="post.excerpt.rendered"></div>
 	</li>
 </ul>
 <p ng-if="is404">{{errorMessage}}</p>

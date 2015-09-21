@@ -24,13 +24,13 @@ function WPService($http) {
 			return;
 		}
 
-		return $http.get('wp-json/taxonomies/category/terms').success(function(res){
+		return $http.get('wp-json/wp/v2/terms/category').success(function(res){
 			WPService.categories = res;
 		});
 	};
 
 	WPService.getPosts = function(page) {
-		return $http.get('wp-json/posts/?page=' + page).success(function(res, status, headers){
+		return $http.get('wp-json/wp/v2/posts/?page=' + page).success(function(res, status, headers){
 			page = parseInt(page);
 
 			if ( isNaN(page) || page > headers('X-WP-TotalPages') ) {
@@ -48,7 +48,7 @@ function WPService($http) {
 	};
 
 	WPService.getSearchResults = function(s) {
-		return $http.get('wp-json/posts/?filter[s]=' + s + '&filter[posts_per_page]=-1').success(function(res, status, headers){
+		return $http.get('wp-json/wp/v2/posts/?filter[s]=' + s + '&filter[posts_per_page]=-1').success(function(res, status, headers){
 			_updateTitle('Search Results for ' + s, 'Search Results:');
 
 			_setArchivePage(res,1,headers);
@@ -59,7 +59,7 @@ function WPService($http) {
 		page = ( ! page ) ? 1 : parseInt( page );
 		_updateTitle('Category: ' + category.name, 'Posts in ' + category.name + ' Page ' + page + ':');
 
-		var request = 'wp-json/posts/?filter[category_name]=' + category.name;
+		var request = 'wp-json/wp/v2/posts/?filter[category_name]=' + category.name;
 		if ( page ) {
 			request += '&page=' + page;
 		}
