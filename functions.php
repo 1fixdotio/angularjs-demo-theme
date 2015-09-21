@@ -82,3 +82,11 @@ function my_theme_setup() {
 	add_theme_support( 'post-thumbnails' );
 }
 add_action( 'after_setup_theme', 'my_theme_setup' );
+
+function my_rest_post_query( $args, $request ) {
+
+	$args['posts_per_page'] = $request['per_page'] = 1;
+
+	return $args;
+}
+add_filter( 'rest_post_query', 'my_rest_post_query', 10, 2 );
