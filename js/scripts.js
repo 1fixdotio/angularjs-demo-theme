@@ -55,7 +55,7 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 		}
 	});
 
-	$http.get('wp-json/wp/v2/media?post_parent=' + $routeParams.ID).success(function(res){
+	$http.get('wp-json/wp/v2/media?filter[post_parent]=' + $routeParams.ID).success(function(res){
 		if ( res.length > 1 ) {
 			$scope.media = res;
 		}

@@ -90,13 +90,31 @@ function my_rest_prepare_post( $data, $post, $request ) {
 }
 add_filter( 'rest_prepare_post', 'my_rest_prepare_post', 10, 3 );
 
+function my_rest_prepare_attachment( $data, $post, $request ) {
+
+	$_data = $data->data;
+	if ( 'image' == $_data['media_type'] )
+		$_data['is_image'] = true;
+	else
+		$_data['is_image'] = false;
+	$data->data = $_data;
+
+	return $data;
+}
+add_filter( 'rest_prepare_attachment', 'my_rest_prepare_attachment', 10, 3 );
+
 function my_rest_post_query( $args, $request ) {
 
-	if ( ( isset( $args['s'] ) && ! empty( $args['s'] ) ) )
-		$args['posts_per_page'] = $request['per_page'] = -1;
-	else
-		$args['posts_per_page'] = $request['per_page'] = 1;
+	if ( 'attachment' == $args['post_type'] || ( isset( $args['s'] ) && ! empty( $args['s'] ) ) )
+		$args['posts_per_page'] = -1;
+	else {
+		$args['posts_per_page'] = 1;
+
+		// add this or the totalPages in headers would be wrong
+		// should be a bug in WP API v2
+		$request['per_page'] = 1;
+	}
 
 	return $args;
 }
-add_filter( 'rest_post_query', 'my_rest_post_query', 10, 2 );
+// add_filter( 'rest_post_query', 'my_rest_post_query', 10, 2 );
