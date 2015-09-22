@@ -40,15 +40,13 @@ app.controller('Main', ['$scope', 'WPService', function($scope, WPService) {
 	WPService.getAllCategories();
 	WPService.getPosts(1);
 	$scope.data = WPService;
-
-	console.log(WPService);
 }]);
 
 //Content controller
 app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
 	$http.get('wp-json/wp/v2/posts/' + $routeParams.ID).success(function(res){
 		$scope.post = res;
-		document.querySelector('title').innerHTML = res.title + ' | AngularJS Demo Theme';
+		document.querySelector('title').innerHTML = res.title.rendered + ' | AngularJS Demo Theme';
 	}).error(function(res, status){
 		if (status === 404) {
 			$scope.is404 = true;
@@ -57,7 +55,7 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 		}
 	});
 
-	$http.get('wp-json/wp/v2/media?filter[post_parent]=' + $routeParams.ID + '&filter[posts_per_page]=-1').success(function(res){
+	$http.get('wp-json/wp/v2/media?post_parent=' + $routeParams.ID).success(function(res){
 		if ( res.length > 1 ) {
 			$scope.media = res;
 		}

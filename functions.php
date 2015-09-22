@@ -70,11 +70,6 @@ function my_add_link_target( $html ) {
 }
 add_filter( 'image_send_to_editor', 'my_add_link_target', 10 );
 
-add_filter( 'query_vars', function( $query_vars ) {
-	$query_vars[] = 'post_parent';
-	return $query_vars;
-});
-
 // add_filter('show_admin_bar', '__return_false');
 
 function my_theme_setup() {
@@ -83,9 +78,24 @@ function my_theme_setup() {
 }
 add_action( 'after_setup_theme', 'my_theme_setup' );
 
+function my_rest_prepare_post( $data, $post, $request ) {
+
+	$_data = $data->data;
+	$thumbnail_id = get_post_thumbnail_id( $post->ID );
+	$thumbnail = wp_get_attachment_image_src( $thumbnail_id );
+	$_data['featured_image_thumbnail_url'] = $thumbnail[0];
+	$data->data = $_data;
+
+	return $data;
+}
+add_filter( 'rest_prepare_post', 'my_rest_prepare_post', 10, 3 );
+
 function my_rest_post_query( $args, $request ) {
 
-	$args['posts_per_page'] = $request['per_page'] = 1;
+	if ( ( isset( $args['s'] ) && ! empty( $args['s'] ) ) )
+		$args['posts_per_page'] = $request['per_page'] = -1;
+	else
+		$args['posts_per_page'] = $request['per_page'] = 1;
 
 	return $args;
 }
