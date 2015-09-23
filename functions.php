@@ -117,4 +117,4 @@ function my_rest_post_query( $args, $request ) {
 
 	return $args;
 }
-// add_filter( 'rest_post_query', 'my_rest_post_query', 10, 2 );
+add_filter( 'rest_post_query', 'my_rest_post_query', 10, 2 );
