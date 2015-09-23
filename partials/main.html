@@ -2,8 +2,8 @@
 <p>Categories:</p>
 <ul>
 	<li ng-repeat="category in data.categories">
-		<span ng-if="current_category_id && category.ID == current_category_id" ng-bind-html="category.name"></span>
-		<a ng-if="!current_category_id || category.ID != current_category_id" href="category/{{category.slug}}" ng-bind-html="category.name"></a>
+		<span ng-if="current_category_id && category.id == current_category_id" ng-bind-html="category.name"></span>
+		<a ng-if="!current_category_id || category.id != current_category_id" href="category/{{category.id}}" ng-bind-html="category.name"></a>
 	</li>
 </ul>
 <p>{{data.pageTitle}}</p>

@@ -65,13 +65,13 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 //Category controller
 app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
 	WPService.getAllCategories();
-	$http.get('wp-json/wp/v2/terms/category/?filter[slug]=' + $routeParams.category).success(function(res){
-		if (!res.length) {
+	$http.get('wp-json/wp/v2/terms/category/' + $routeParams.category).success(function(res){
+		if (!res) {
 			document.querySelector('title').innerHTML = 'Category not found | AngularJS Demo Theme';
 			$scope.data.pageTitle = 'Category not found';
 		} else {
-			$scope.current_category_id = res[0].ID;
-			WPService.getPostsInCategory(res[0], $routeParams.page);
+			$scope.current_category_id = res.id;
+			WPService.getPostsInCategory(res, $routeParams.page);
 		}
 	});
 
