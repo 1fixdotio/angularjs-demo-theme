@@ -105,11 +105,9 @@ add_filter( 'rest_prepare_attachment', 'my_rest_prepare_attachment', 10, 3 );
 
 function my_rest_post_query( $args, $request ) {
 
-	if ( 'attachment' == $args['post_type'] || ( isset( $args['s'] ) && ! empty( $args['s'] ) ) )
-		$args['posts_per_page'] = -1;
-	elseif ( 10 != $request['per_page'] ) {
-		// if per_page != 10 (the default value), get it from $request, and now we can make it a negative integer
-		$args['posts_per_page'] = $request['per_page'];
+	if ( isset( $request['filter'] ) && isset( $request['filter']['posts_per_page'] ) && ! empty( $request['filter']['posts_per_page'] ) ) {
+		$args['posts_per_page'] = $request['filter']['posts_per_page'];
+		$request['per_page'] = $request['filter']['posts_per_page'];
 	}
 
 	return $args;
