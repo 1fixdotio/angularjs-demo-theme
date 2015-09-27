@@ -30,7 +30,7 @@ function WPService($http) {
 	};
 
 	WPService.getPosts = function(page) {
-		return $http.get('wp-json/wp/v2/posts/?page=' + page).success(function(res, status, headers){
+		return $http.get('wp-json/wp/v2/posts/?page=' + page + '&per_page=-1').success(function(res, status, headers){
 			page = parseInt(page);
 
 			if ( isNaN(page) || page > headers('X-WP-TotalPages') ) {
@@ -59,7 +59,7 @@ function WPService($http) {
 		page = ( ! page ) ? 1 : parseInt( page );
 		_updateTitle('Category: ' + category.name, 'Posts in ' + category.name + ' Page ' + page + ':');
 
-		var request = 'wp-json/wp/v2/posts/?filter[category_name]=' + category.name;
+		var request = 'wp-json/wp/v2/posts/?filter[category_name]=' + category.name + '&per_page=-1';
 		if ( page ) {
 			request += '&page=' + page;
 		}
