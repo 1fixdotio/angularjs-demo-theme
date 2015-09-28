@@ -106,8 +106,15 @@ add_filter( 'rest_prepare_attachment', 'my_rest_prepare_attachment', 10, 3 );
 function my_rest_post_query( $args, $request ) {
 
 	if ( isset( $request['filter'] ) && isset( $request['filter']['posts_per_page'] ) && ! empty( $request['filter']['posts_per_page'] ) ) {
-		$args['posts_per_page'] = $request['filter']['posts_per_page'];
-		$request['per_page'] = $request['filter']['posts_per_page'];
+		if ( $request['filter']['posts_per_page'] > 0 ) {
+			$request['per_page'] = $request['filter']['posts_per_page'];
+		} else {
+			$count_query = new WP_Query();
+			unset( $query_args['paged'] );
+			$query_result = $count_query->query( $query_args );
+			$total_posts = $query_result->found_posts;
+			$request['per_page'] = $total_posts;
+		}
 	}
 
 	return $args;
