@@ -17,11 +17,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		templateUrl: myLocalized.partials + 'content.html',
 		controller: 'Content'
 	})
-	.when('/category/:category/', {
+	.when('/category/:slug/', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
-	.when('/category/:category/page/:page', {
+	.when('/category/:slug/page/:page', {
 		templateUrl: myLocalized.partials + 'main.html',
 		controller: 'Category'
 	})
@@ -65,13 +65,13 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 //Category controller
 app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
 	WPService.getAllCategories();
-	$http.get('wp-json/wp/v2/terms/category/' + $routeParams.category).success(function(res){
+	$http.get('wp-json/wp/v2/terms/category/?search=' + $routeParams.slug).success(function(res){
 		if (!res) {
 			document.querySelector('title').innerHTML = 'Category not found | AngularJS Demo Theme';
 			$scope.data.pageTitle = 'Category not found';
 		} else {
-			$scope.current_category_id = res.id;
-			WPService.getPostsInCategory(res, $routeParams.page);
+			$scope.current_category_id = res[0].id;
+			WPService.getPostsInCategory(res[0], $routeParams.page);
 		}
 	});
 
