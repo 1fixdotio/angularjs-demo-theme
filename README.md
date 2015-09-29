@@ -44,6 +44,8 @@ Just install it like any WordPress theme.
 
 16. [Getting Posts By Taxonomy Or Meta Field With WP-API v2.0](https://1fix.io/blog/2015/07/20/query-vars-wp-api/): The WP-API v2.0 works in a more WP_Query way, but there’re still a few concepts need to be clarified. Wanna know how many query parameters are available? Let’s dig into the source of WP-API and WordPress.
 
+17. [Upgrading Your AngularJS Theme To Work With WP API V2](https://1fix.io/blog/2015/09/29/wp-api-v2-angularjs-theme/): The WP API v2 is almost ready so I’m upgrading the AngularJS theme project to work with it. Other than just changing the routes, you’ll be surprised how the version 2 differs from version 1.
+
 **More content to go. Stay tuned.**
 
 ## Contact
