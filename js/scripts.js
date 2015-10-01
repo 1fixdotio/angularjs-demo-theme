@@ -1,38 +1,50 @@
 var app = angular.module('app', ['ngRoute', 'ngSanitize', 'slick']);
 
 //Config the route
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 	$locationProvider.html5Mode(true);
 
 	$routeProvider
-	.when('/', {
-		templateUrl: myLocalized.partials + 'main.html',
-		controller: 'Main'
-	})
-	.when('/demo', {
-		templateUrl: myLocalized.partials + 'demo.html',
-		controller: 'Main'
-	})
-	.when('/blog/:ID', {
-		templateUrl: myLocalized.partials + 'content.html',
-		controller: 'Content'
-	})
-	.when('/category/:slug/', {
-		templateUrl: myLocalized.partials + 'main.html',
-		controller: 'Category'
-	})
-	.when('/category/:slug/page/:page', {
-		templateUrl: myLocalized.partials + 'main.html',
-		controller: 'Category'
-	})
-	.when('/page/:page', {
-		templateUrl: myLocalized.partials + 'main.html',
-		controller: 'Paged'
-	})
-	.otherwise({
-		templateUrl: myLocalized.partials + '404.html',
-		controller: '404'
-	});
+		.when('/', {
+			templateUrl: myLocalized.partials + 'main.html',
+			controller: 'Main'
+		})
+		.when('/demo', {
+			templateUrl: myLocalized.partials + 'demo.html',
+			controller: 'Main'
+		})
+		.when('/blog/:ID', {
+			templateUrl: myLocalized.partials + 'content.html',
+			controller: 'Content'
+		})
+		.when('/category/:slug/', {
+			templateUrl: myLocalized.partials + 'main.html',
+			controller: 'Category'
+		})
+		.when('/category/:slug/page/:page', {
+			templateUrl: myLocalized.partials + 'main.html',
+			controller: 'Category'
+		})
+		.when('/page/:page', {
+			templateUrl: myLocalized.partials + 'main.html',
+			controller: 'Paged'
+		})
+		.otherwise({
+			templateUrl: myLocalized.partials + '404.html',
+			controller: '404'
+		});
+
+	$httpProvider.interceptors.push([function() {
+		return {
+			'request': function(config) {
+				config.headers = config.headers || {};
+				//add nonce to avoid CSRF issues
+				config.headers['X-WP-Nonce'] = myLocalized.nonce;
+
+				return config;
+			}
+		};
+	}]);
 }]);
 
 //Main controller
@@ -44,10 +56,10 @@ app.controller('Main', ['$scope', 'WPService', function($scope, WPService) {
 
 //Content controller
 app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-	$http.get('wp-json/wp/v2/posts/' + $routeParams.ID).success(function(res){
+	$http.get('wp-json/wp/v2/posts/' + $routeParams.ID).success(function(res) {
 		$scope.post = res;
 		document.querySelector('title').innerHTML = res.title.rendered + ' | AngularJS Demo Theme';
-	}).error(function(res, status){
+	}).error(function(res, status) {
 		if (status === 404) {
 			$scope.is404 = true;
 			document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
@@ -55,8 +67,8 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 		}
 	});
 
-	$http.get('wp-json/wp/v2/media?filter[post_parent]=' + $routeParams.ID + '&filter[posts_per_page]=-1').success(function(res){
-		if ( res.length > 1 ) {
+	$http.get('wp-json/wp/v2/media?filter[post_parent]=' + $routeParams.ID + '&filter[posts_per_page]=-1').success(function(res) {
+		if (res.length > 1) {
 			$scope.media = res;
 		}
 	});
@@ -65,7 +77,7 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 //Category controller
 app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
 	WPService.getAllCategories();
-	$http.get('wp-json/wp/v2/terms/category/?search=' + $routeParams.slug).success(function(res){
+	$http.get('wp-json/wp/v2/terms/category/?search=' + $routeParams.slug).success(function(res) {
 		if (!res) {
 			document.querySelector('title').innerHTML = 'Category not found | AngularJS Demo Theme';
 			$scope.data.pageTitle = 'Category not found';
@@ -90,7 +102,7 @@ app.directive('searchForm', function() {
 	return {
 		restrict: 'EA',
 		template: 'Search Keyword: <input type="text" name="s" ng-model="filter.s" ng-change="search()">',
-		controller: ['$scope', 'WPService', function ( $scope, WPService ) {
+		controller: ['$scope', 'WPService', function($scope, WPService) {
 			$scope.filter = {
 				s: ''
 			};
@@ -111,16 +123,16 @@ app.directive('postsNavLink', function() {
 	return {
 		restrict: 'EA',
 		templateUrl: myLocalized.partials + 'posts-nav-link.html',
-		controller: ['$scope', '$element', '$routeParams', function( $scope, $element, $routeParams ){
-			var currentPage = ( ! $routeParams.page ) ? 1 : parseInt( $routeParams.page ),
-			linkPrefix = ( ! $routeParams.category ) ? 'page/' : 'category/' + $routeParams.category + '/page/';
+		controller: ['$scope', '$element', '$routeParams', function($scope, $element, $routeParams) {
+			var currentPage = (!$routeParams.page) ? 1 : parseInt($routeParams.page),
+				linkPrefix = (!$routeParams.category) ? 'page/' : 'category/' + $routeParams.category + '/page/';
 
 			$scope.postsNavLink = {
-				prevLink: linkPrefix + ( currentPage - 1 ),
-				nextLink: linkPrefix + ( currentPage + 1 ),
-				sep: ( ! $element.attr('sep') ) ? '|' : $element.attr('sep'),
-				prevLabel: ( ! $element.attr('prev-label') ) ? 'Previous Page' : $element.attr('prev-label'),
-				nextLabel: ( ! $element.attr('next-label') ) ? 'Next Page' : $element.attr('next-label')
+				prevLink: linkPrefix + (currentPage - 1),
+				nextLink: linkPrefix + (currentPage + 1),
+				sep: (!$element.attr('sep')) ? '|' : $element.attr('sep'),
+				prevLabel: (!$element.attr('prev-label')) ? 'Previous Page' : $element.attr('prev-label'),
+				nextLabel: (!$element.attr('next-label')) ? 'Next Page' : $element.attr('next-label')
 			};
 		}]
 	};

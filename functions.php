@@ -57,7 +57,8 @@ function my_scripts() {
 		'my-scripts',
 		'myLocalized',
 		array(
-			'partials' => trailingslashit( get_template_directory_uri() ) . 'partials/'
+			'partials' => trailingslashit( get_template_directory_uri() ) . 'partials/',
+			'nonce' => wp_create_nonce( 'wp_rest' )
 			)
 	);
 }
