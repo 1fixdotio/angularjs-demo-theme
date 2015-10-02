@@ -5,7 +5,8 @@ function WPService($http) {
 		posts: [],
 		pageTitle: 'Latest Posts:',
 		currentPage: 1,
-		totalPages: 1
+		totalPages: 1,
+		currentUser: {}
 	};
 
 	function _updateTitle(documentTitle, pageTitle) {
@@ -66,6 +67,12 @@ function WPService($http) {
 
 		return $http.get(request).success(function(res, status, headers){
 			_setArchivePage(res, page, headers);
+		});
+	};
+
+	WPService.getCurrentUser = function() {
+		return $http.get('wp-json/wp/v2/users/me').success(function(res){
+			WPService.currentUser = res;
 		});
 	};
 

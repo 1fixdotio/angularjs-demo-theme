@@ -97,6 +97,11 @@ app.controller('Paged', ['$scope', '$routeParams', 'WPService', function($scope,
 	$scope.data = WPService;
 }]);
 
+//404 controller
+app.controller('404', function() {
+	document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
+});
+
 //searchForm Directive
 app.directive('searchForm', function() {
 	return {
@@ -111,11 +116,6 @@ app.directive('searchForm', function() {
 			};
 		}]
 	};
-});
-
-//404 controller
-app.controller('404', function() {
-	document.querySelector('title').innerHTML = 'Page not found | AngularJS Demo Theme';
 });
 
 //postsNavLink Directive
@@ -134,6 +134,17 @@ app.directive('postsNavLink', function() {
 				prevLabel: (!$element.attr('prev-label')) ? 'Previous Page' : $element.attr('prev-label'),
 				nextLabel: (!$element.attr('next-label')) ? 'Next Page' : $element.attr('next-label')
 			};
+		}]
+	};
+});
+
+//loginForm Directive
+app.directive('loginForm', function(){
+	return {
+		restrict: 'EA',
+		templateUrl: myLocalized.partials + 'login-form.html',
+		controller: ['$scope', 'WPService', function($scope, WPService) {
+			WPService.getCurrentUser();
 		}]
 	};
 });
