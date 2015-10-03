@@ -143,7 +143,7 @@ app.directive('loginForm', function(){
 	return {
 		restrict: 'EA',
 		templateUrl: myLocalized.partials + 'login-form.html',
-		controller: ['$scope', 'WPService', function($scope, WPService) {
+		controller: ['WPService', function(WPService) {
 			WPService.getCurrentUser();
 		}]
 	};
