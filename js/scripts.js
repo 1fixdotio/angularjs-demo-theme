@@ -138,11 +138,11 @@ app.directive('postsNavLink', function() {
 	};
 });
 
-//loginForm Directive
-app.directive('loginForm', function(){
+//sayHello Directive
+app.directive('sayHello', function(){
 	return {
 		restrict: 'EA',
-		templateUrl: myLocalized.partials + 'login-form.html',
+		templateUrl: myLocalized.partials + 'say-hello.html',
 		controller: ['WPService', function(WPService) {
 			WPService.getCurrentUser();
 		}]
