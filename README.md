@@ -46,6 +46,8 @@ Just install it like any WordPress theme.
 
 17. [Upgrading Your AngularJS Theme To Work With WP API V2](https://1fix.io/blog/2015/09/29/wp-api-v2-angularjs-theme/): The WP API v2 is almost ready so I’m upgrading the AngularJS theme project to work with it. Other than just changing the routes, you’ll be surprised how the version 2 differs from version 1.
 
+18. [Cookie Authentication In A AngularJS WordPress Theme](https://1fix.io/blog/2015/10/11/cookie-authentication-wp-api-angularjs/): I’ll walk you through what are **cookie authentication**, WordPress **nonces** and **AngularJS `$httpProvider.interceptors`** in this tutorial.&nbsp;By sending the nonce in the headers with each API requests, getting authenticated with WP API in a theme is actually very easy.
+
 **More content to go. Stay tuned.**
 
 ## Contact
