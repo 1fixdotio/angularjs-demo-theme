@@ -6,7 +6,7 @@
 |___/_|_|\___|_|\_(_)/ |___/
                    |__/
 
- Version: 1.5.6
+ Version: 1.5.8
   Author: Ken Wheeler
  Website: http://kenwheeler.github.io
     Docs: http://kenwheeler.github.io/slick
@@ -827,7 +827,8 @@
             _.$dots.remove();
         }
 
-        if ( _.$prevArrow.length ) {
+
+        if ( _.$prevArrow && _.$prevArrow.length ) {
 
             _.$prevArrow
                 .removeClass('slick-disabled slick-arrow slick-hidden')
@@ -839,7 +840,7 @@
             }
         }
 
-        if ( _.$nextArrow.length ) {
+        if ( _.$nextArrow && _.$nextArrow.length ) {
 
             _.$nextArrow
                 .removeClass('slick-disabled slick-arrow slick-hidden')
@@ -849,7 +850,9 @@
             if ( _.htmlExpr.test( _.options.nextArrow )) {
                 _.$nextArrow.remove();
             }
+
         }
+
 
         if (_.$slides) {
 
@@ -1478,8 +1481,8 @@
 
     };
 
-    Slick.prototype.preventDefault = function(e) {
-        e.preventDefault();
+    Slick.prototype.preventDefault = function(event) {
+        event.preventDefault();
     };
 
     Slick.prototype.progressiveLazyLoad = function() {
