@@ -25,7 +25,7 @@ function WPService($http) {
 			return;
 		}
 
-		return $http.get('wp-json/wp/v2/terms/category').success(function(res){
+		return $http.get('wp-json/wp/v2/categories').success(function(res){
 			WPService.categories = res;
 		});
 	};

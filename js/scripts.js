@@ -77,7 +77,7 @@ app.controller('Content', ['$scope', '$routeParams', '$http', function($scope, $
 //Category controller
 app.controller('Category', ['$scope', '$routeParams', '$http', 'WPService', function($scope, $routeParams, $http, WPService) {
 	WPService.getAllCategories();
-	$http.get('wp-json/wp/v2/terms/category/?search=' + $routeParams.slug).success(function(res) {
+	$http.get('wp-json/wp/v2/categories/?search=' + $routeParams.slug).success(function(res) {
 		if (!res) {
 			document.querySelector('title').innerHTML = 'Category not found | AngularJS Demo Theme';
 			$scope.data.pageTitle = 'Category not found';

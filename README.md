@@ -1,4 +1,4 @@
-# Using AngularJS And WP REST API v2 Beta 4 In Your WordPress Theme
+# Using AngularJS And WP REST API v2 Beta 9 In Your WordPress Theme
 
 This is the final project files from my tutorial post: [Using AngularJS And WP REST API In Your WordPress Theme](http://1fix.io/blog/2014/11/05/angularjs-json-api-wp-theme/). Even if you have no experience in AngularJS, as long as you’re comfortable with coding (and WordPress), now you can open your favorite code editor and work with me.
 
@@ -47,6 +47,9 @@ Just install it like any WordPress theme.
 17. [Upgrading Your AngularJS Theme To Work With WP API V2](https://1fix.io/blog/2015/09/29/wp-api-v2-angularjs-theme/): The WP API v2 is almost ready so I’m upgrading the AngularJS theme project to work with it. Other than just changing the routes, you’ll be surprised how the version 2 differs from version 1.
 
 18. [Cookie Authentication In A AngularJS WordPress Theme](https://1fix.io/blog/2015/10/11/cookie-authentication-wp-api-angularjs/): I’ll walk you through what are **cookie authentication**, WordPress **nonces** and **AngularJS `$httpProvider.interceptors`** in this tutorial.&nbsp;By sending the nonce in the headers with each API requests, getting authenticated with WP API in a theme is actually very easy.
+
+19. [Display Post Excerpt To The More Tag With WP API V2](https://1fix.io/blog/2015/12/12/more-tag-wp-api/):
+Are you looking for a solution to display post excerpt based on the <!--more--> tag? I have some not-so-shiny tricks to show you.
 
 **More content to go. Stay tuned.**
 
