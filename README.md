@@ -49,7 +49,9 @@ Just install it like any WordPress theme.
 18. [Cookie Authentication In A AngularJS WordPress Theme](https://1fix.io/blog/2015/10/11/cookie-authentication-wp-api-angularjs/): I’ll walk you through what are **cookie authentication**, WordPress **nonces** and **AngularJS `$httpProvider.interceptors`** in this tutorial.&nbsp;By sending the nonce in the headers with each API requests, getting authenticated with WP API in a theme is actually very easy.
 
 19. [Display Post Excerpt To The More Tag With WP API V2](https://1fix.io/blog/2015/12/12/more-tag-wp-api/):
-Are you looking for a solution to display post excerpt based on the <!--more--> tag? I have some not-so-shiny tricks to show you.
+Are you looking for a solution to display post excerpt based on the `<!--more-->` tag? I have some not-so-shiny tricks to show you.
+
+20. [Getting Categories With Posts In A Single WP API Request](https://1fix.io/blog/2015/12/18/single-request-category-posts/): This short tutorial will show you how to add an extra field to the category route response, so you can get related posts for each category with just a single API call.
 
 **More content to go. Stay tuned.**
 
