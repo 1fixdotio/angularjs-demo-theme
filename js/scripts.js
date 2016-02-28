@@ -125,7 +125,7 @@ app.directive('postsNavLink', function() {
 		templateUrl: myLocalized.partials + 'posts-nav-link.html',
 		controller: ['$scope', '$element', '$routeParams', function($scope, $element, $routeParams) {
 			var currentPage = (!$routeParams.page) ? 1 : parseInt($routeParams.page),
-				linkPrefix = (!$routeParams.category) ? 'page/' : 'category/' + $routeParams.category + '/page/';
+				linkPrefix = (!$routeParams.slug) ? 'page/' : 'category/' + $routeParams.slug + '/page/';
 
 			$scope.postsNavLink = {
 				prevLink: linkPrefix + (currentPage - 1),
